@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using trialapp.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<Comp2001malVgohkahfungContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
