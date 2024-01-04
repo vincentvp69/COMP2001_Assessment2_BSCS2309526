@@ -5,6 +5,7 @@ using trialapp.Models;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http; // Add this namespace for HttpContextAccessor
 using System.Text.Json;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
@@ -16,11 +17,14 @@ namespace trialapp.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly Comp2001malVgohkahfungContext _context;
         private readonly ILogger _logger;
-        public LoginController(IHttpClientFactory httpClientFactory, Comp2001malVgohkahfungContext context,ILogger<LoginController>logger)
+        private readonly IHttpContextAccessor _httpContextAccessor; // Inject IHttpContextAccessor
+
+        public LoginController(IHttpClientFactory httpClientFactory, Comp2001malVgohkahfungContext context,ILogger<LoginController>logger, IHttpContextAccessor httpContextAccessor) // Inject IHttpContextAccessor
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost]
@@ -31,7 +35,7 @@ namespace trialapp.Controllers
             if (result)
             {
                 
-                    return RedirectToAction("Privacy", "Home");
+                    return RedirectToAction("UpdateProfile", "Home");
                 
             }
 
@@ -41,7 +45,16 @@ namespace trialapp.Controllers
             return View("~/Views/Home/Index.cshtml");
 
         }
-
+        private async Task<int?> GetUserIdByEmailAsync(string email)
+        {
+            // Assuming you have a User model and a DbSet for users in your DbContext
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            if (user != null)
+            {
+                return user.UserId; // Replace 'Id' with the actual property name for the user ID.
+            }
+            return null;
+        }
         private async Task<bool> VerifyUserAsync(string email, string password)
         {
             var client = _httpClientFactory.CreateClient();
@@ -76,7 +89,14 @@ namespace trialapp.Controllers
                             verificationResult[0] == "Verified" &&
                             verificationResult[1] == "True")
                         {
-                            return true;
+                            // Get the user ID from the hosting database
+                            var userId = await GetUserIdByEmailAsync(email);
+                            if (userId.HasValue) // Check if userId has a value
+                            {
+                                _logger.LogInformation($"User ID: {userId.Value}");
+                                HttpContext.Session.SetInt32("UserId", userId.Value); // Use userId.Value to extract the non-nullable int
+                                return true;
+                            }
                         }
                     }
                 }

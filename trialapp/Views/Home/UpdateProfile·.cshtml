@@ -1,0 +1,42 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Update Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+<form asp-action="UpdateProfile" method="post">
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <input type="text" id="Username" name="Username" class="form-control" value="@Model.Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="UserHeight">User Height</label>
+        <input type="number" id="UserHeight" name="UserHeight" class="form-control" value="@Model.UserHeight" />
+        <span asp-validation-for="UserHeight" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="UserWeight">User Weight</label>
+        <input type="number" id="UserWeight" name="UserWeight" class="form-control" value="@Model.UserWeight" />
+        <span asp-validation-for="UserWeight" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </div>
+</form>
