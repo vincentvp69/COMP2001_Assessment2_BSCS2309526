@@ -1,0 +1,34 @@
+﻿@model IEnumerable<trialapp.Models.ActivityRecord>
+<h1>Activity Records</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Trial Type</th>
+            <th>Trial Time</th>
+            <th>Trial Distance</th>
+            <th>Trial Difficulty</th>
+            <th></th>
+            <th></th>
+            <!-- Add other headers based on your model properties -->
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var record in Model)
+    {
+        <tr>
+            <td>@record.TrialId</td>
+            <td>@record.TrialType</td>
+            <td>@record.TrialType</td>
+            <td>@record.TrialTime</td>
+            <td>@record.TrialDistance</td>
+            <td>@record.TrialDifficulty</td>
+                <td>@record.TrialHeight</td>
+            <!-- Add other columns based on your model properties -->
+        </tr>
+    }
+    </tbody>
+</table>

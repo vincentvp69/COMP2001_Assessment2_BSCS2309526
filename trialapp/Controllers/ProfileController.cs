@@ -12,7 +12,7 @@ namespace trialapp.Controllers
             _context = context;
         }
 
-        public IActionResult UpdateProfile()
+        public async Task<ActionResult>Index()
         {
             // Verify session ID and get user ID from session
             int? userId = HttpContext.Session.GetInt32("UserId");
@@ -50,7 +50,7 @@ namespace trialapp.Controllers
             if (!ModelState.IsValid)
             {
                 // Invalid input, redisplay the form with validation errors
-                return View(viewModel);
+                return View("Index", viewModel);
             }
 
             // Retrieve user ID from session
@@ -82,7 +82,7 @@ namespace trialapp.Controllers
             // Display a confirmation message
             ViewBag.SuccessMessage = "Profile updated successfully";
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
     }
 

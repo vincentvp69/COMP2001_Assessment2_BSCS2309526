@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\UpdateProfile·.cshtml" />
+    <None Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
 
 </Project>

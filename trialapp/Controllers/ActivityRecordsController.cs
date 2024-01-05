@@ -22,14 +22,14 @@ namespace trialapp.Controllers
 
         // GET: api/ActivityRecords
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ActivityRecord>>> GetActivityRecords()
+        public async Task<ActionResult<IEnumerable<Models.ActivityRecord>>> GetActivityRecords()
         {
             return await _context.ActivityRecords.ToListAsync();
         }
 
         // GET: api/ActivityRecords/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ActivityRecord>> GetActivityRecord(int id)
+        public async Task<ActionResult<Models.ActivityRecord>> GetActivityRecord(int id)
         {
             var activityRecord = await _context.ActivityRecords.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace trialapp.Controllers
         // PUT: api/ActivityRecords/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutActivityRecord(int id, ActivityRecord activityRecord)
+        public async Task<IActionResult> PutActivityRecord(int id, Models.ActivityRecord activityRecord)
         {
             if (id != activityRecord.TrialId)
             {
@@ -75,7 +75,7 @@ namespace trialapp.Controllers
         // POST: api/ActivityRecords
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ActivityRecord>> PostActivityRecord(ActivityRecord activityRecord)
+        public async Task<ActionResult<Models.ActivityRecord>> PostActivityRecord(Models.ActivityRecord activityRecord)
         {
             _context.ActivityRecords.Add(activityRecord);
             try

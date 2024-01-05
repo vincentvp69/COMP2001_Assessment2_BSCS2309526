@@ -35,7 +35,7 @@ namespace trialapp.Controllers
             if (result)
             {
                 
-                    return RedirectToAction("UpdateProfile", "Home");
+                    return RedirectToAction("Index", "Profile");
                 
             }
 
