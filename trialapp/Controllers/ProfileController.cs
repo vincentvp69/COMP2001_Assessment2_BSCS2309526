@@ -84,6 +84,13 @@ namespace trialapp.Controllers
 
             return View("Index", viewModel);
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 
 }

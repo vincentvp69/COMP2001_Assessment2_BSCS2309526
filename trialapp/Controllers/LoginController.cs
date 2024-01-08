@@ -5,7 +5,7 @@ using trialapp.Models;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http; // Add this namespace for HttpContextAccessor
+using Microsoft.AspNetCore.Http; 
 using System.Text.Json;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
